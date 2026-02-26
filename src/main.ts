@@ -9,16 +9,19 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-  100,
+  45,
   window.innerWidth / window.innerHeight,
   0.1,
   1000,
 );
-camera.position.z = 1.5;
+camera.position.z = 3;
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener("resize", () => {
@@ -48,7 +51,7 @@ const ormMap = loader.load("/textures/concrete/orm.jpg");
 for (const tex of [albedoMap, normalMap, ormMap]) {
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(4, 4);
+  tex.repeat.set(3, 2);
 }
 
 const geometry = new THREE.SphereGeometry(1, 64, 64);
@@ -73,7 +76,7 @@ scene.add(sphere);
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x222222, 1);
 scene.add(hemisphereLight);
 
-const light = new THREE.AmbientLight(0xffffff, 0.5);
+const light = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(light);
 
 // ---------------------------------------------------------------------------
