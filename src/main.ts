@@ -18,6 +18,7 @@ camera.position.z = 1.5;
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener("resize", () => {
@@ -34,14 +35,31 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableRotate = true;
 
 // ---------------------------------------------------------------------------
-// Geometry & Material
+// Geometry, Material, Mesh
 // ---------------------------------------------------------------------------
+
+const loader = new THREE.TextureLoader();
+
+const albedoMap = loader.load("/textures/concrete/albedo.jpg");
+albedoMap.colorSpace = THREE.SRGBColorSpace;
+const normalMap = loader.load("/textures/concrete/normal.jpg");
+const ormMap = loader.load("/textures/concrete/orm.jpg");
+
+for (const tex of [albedoMap, normalMap, ormMap]) {
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(4, 4);
+}
 
 const geometry = new THREE.SphereGeometry(1, 64, 64);
 const material = new THREE.MeshStandardMaterial({
-  color: 0xff0000,
-  roughness: 0,
-  flatShading: false,
+  map: albedoMap,
+  normalMap: normalMap,
+  roughnessMap: ormMap,
+  metalnessMap: ormMap,
+  aoMap: ormMap,
+  roughness: 1.0,
+  metalness: 0.0,
 });
 // const material = new THREE.MeshNormalMaterial({ wireframe: true });
 
@@ -55,7 +73,7 @@ scene.add(sphere);
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x222222, 1);
 scene.add(hemisphereLight);
 
-const light = new THREE.AmbientLight(0x404040); // soft white light
+const light = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(light);
 
 // ---------------------------------------------------------------------------
