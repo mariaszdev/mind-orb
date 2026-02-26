@@ -1,4 +1,7 @@
 import "./style.css";
+import { createElement } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -90,3 +93,9 @@ function animate() {
 }
 
 animate();
+
+// ---------------------------------------------------------------------------
+// React UI
+// ---------------------------------------------------------------------------
+
+createRoot(document.getElementById("ui-root")!).render(createElement(App, null));
