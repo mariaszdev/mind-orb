@@ -30,7 +30,7 @@ import {
   onArcPointerMove,
   onArcPointerUp,
   getDrawingArc,
-  updateArcsForDrag,
+  rebuildAllArcs,
   updateAllArcs,
 } from "./lines/arcManager.ts";
 
@@ -202,15 +202,15 @@ function animate(): void {
       note.normal.applyQuaternion(_edgeQ);
       applyNoteTransform(note);
     }
-    updateArcsForDrag(draggingNote);
-  } else if (draggingNote) {
-    updateArcsForDrag(draggingNote);
   }
 
   // Edge-spin while drawing arc
   if (edgeSpin && getDrawingArc()) {
     updateAllArcs(scene, sphere, notes, pointer, camera);
   }
+
+  // Rebuild all arc tubes every frame so they always track current note.normal positions
+  rebuildAllArcs();
 
   renderer.render(scene, camera);
   labelRenderer.render(scene, camera);

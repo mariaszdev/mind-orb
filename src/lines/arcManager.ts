@@ -4,7 +4,7 @@ import { TubeGeometry } from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { arrowConeGeo, PIN_UP } from "../pins/pin.ts";
 import type { Note } from "../pins/pin.ts";
-import { hitPin, hitNoteDiv, hitPinAtScreen } from "../pins/noteManager.ts";
+import { hitPin, hitNoteDiv, hitPinAtScreen, applyNoteTransform } from "../pins/noteManager.ts";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -445,6 +445,14 @@ export function updateArcsForDrag(draggingNote: Note): void {
   }
 }
 
+export function rebuildAllArcs(): void {
+  for (const arc of arcConnections) {
+    arc.mesh.geometry.dispose();
+    arc.mesh.geometry = makeArcTube(arc.from.normal, arc.to.normal);
+    repositionArcArrows(arc);
+  }
+}
+
 export function updateAllArcs(
   _scene: THREE.Scene,
   sphere: THREE.Mesh,
@@ -462,6 +470,7 @@ export function updateAllArcs(
   sphere.quaternion.premultiply(q);
   for (const note of notes) {
     note.normal.applyQuaternion(q);
+    applyNoteTransform(note);
   }
   for (const arc of arcConnections) {
     arc.mesh.geometry.dispose();
