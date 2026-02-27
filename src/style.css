@@ -9,3 +9,104 @@ body {
   pointer-events: none;
   z-index: 10;
 }
+
+/* ── Note label cards ─────────────────────────── */
+
+.note {
+  position: relative;
+  background: #fef08a;
+  color: #1a1a1a;
+  padding: 6px 10px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: sans-serif;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.45);
+  max-width: 140px;
+  word-wrap: break-word;
+  pointer-events: auto;
+  cursor: grab;
+  white-space: pre-wrap;
+  user-select: none;
+  touch-action: none;
+  transition:
+    opacity 0.08s linear,
+    box-shadow 0.1s;
+}
+
+.note-text {
+  display: block;
+}
+
+.note--dragging {
+  cursor: grabbing;
+  box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.6);
+  transition: none;
+}
+
+.note--editing {
+  cursor: text;
+  user-select: text;
+  touch-action: auto;
+  max-width: 280px;
+  max-height: 196px;
+  overflow-y: auto;
+  outline: 2px solid #facc15;
+  transition: none;
+}
+
+/* Note highlighted as arc source (mobile long-press) */
+.note--arc-source {
+  outline: 2px solid #f97316;
+  box-shadow: 0 0 14px rgba(249, 115, 22, 0.7);
+}
+
+/* ── Arc right-click context menu ─────────────── */
+
+#arc-menu {
+  position: fixed;
+  background: #1e1e1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 4px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: none;
+  min-width: 148px;
+}
+
+#arc-menu button {
+  display: block;
+  width: 100%;
+  padding: 6px 14px;
+  background: none;
+  border: none;
+  color: #e8e8e8;
+  font-size: 12px;
+  font-family: sans-serif;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#arc-menu button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#arc-menu button.arc-menu-danger {
+  color: #ff7070;
+}
+
+.arc-menu-sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 3px 0;
+}
+
+/* Body cursor while SPACE (orbit mode) is active */
+.orbit-mode {
+  cursor: grab;
+}
+.orbit-mode:active {
+  cursor: grabbing;
+}
