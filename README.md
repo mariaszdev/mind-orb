@@ -54,16 +54,21 @@ The dev server runs at `http://localhost:5173` by default.
 ## Project Structure
 
 ```
-mind-orb/
-├── public/
-│   └── textures/
-│       └── concrete/   # albedo, normal, ORM maps
-├── src/
-│   ├── main.ts         # Entry point (concrete sphere)
-│   └── style.css
-├── index.html
-├── package.json
-└── tsconfig.json
+ 📦mind-orb
+ ┣ 📂public/
+ ┃ ┗ 📂textures/
+ ┃ ┃ ┗ 📂concrete/    # albedo, normal, ORM maps
+ ┣ 📂src/
+ ┃ ┣ 📂core/
+ ┃ ┃ ┣ controls.ts  # OrbitControls factory
+ ┃ ┃ ┗ scene.ts     # Scene, camera, renderer, lights, resize handler
+ ┃ ┣ 📂sphere
+ ┃ ┃ ┗ sphere.ts    # Sphere geometry, material, texture loading
+ ┃ ┣ App.tsx
+ ┃ ┣ context.ts     # AppContext interface — shared type for all future managers
+ ┃ ┣ main.ts        # Wires everything together, exports ctx, runs animate loop, mounts React
+ ┃ ┗ style.css
+ ┣ index.html
 ```
 
 ## License
