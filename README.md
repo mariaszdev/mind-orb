@@ -1,5 +1,7 @@
 # Mind Orb
 
+**Live demo:** [mind-orb.vercel.app](https://mind-orb.vercel.app)
+
 An interactive 3D sphere built with Three.js and TypeScript. Place pins with notes anywhere on the surface, connect them with arcs, and build a spatial mind map on a textured orb.
 
 ## Features
@@ -14,6 +16,11 @@ An interactive 3D sphere built with Three.js and TypeScript. Place pins with not
 - **Arc connections** — drag from one pin to another to draw a curved arc with an arrowhead; right-click an arc for a context menu to delete it
 - **Back-face fading** — pins and labels fade out when they rotate to the back of the sphere
 - **Orbit mode** — hold `Space` to rotate the sphere freely without accidentally clicking pins
+
+### Planned
+
+- **Export / Import** — save your orb state (pins, arcs, notes) to a Markdown `.md` file and reload it later
+- **Obsidian plugin** — embed the orb directly inside an Obsidian vault as an interactive view
 
 ## Controls
 
