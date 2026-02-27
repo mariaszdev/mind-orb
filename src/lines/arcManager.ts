@@ -258,24 +258,6 @@ function buildArcMenu(arc: ArcConnection): void {
     arcMenuEl!.appendChild(el);
   };
 
-  const t = !!arc.arrowTo;
-  const f = !!arc.arrowFrom;
-  btn((t && f ? "✓ " : "") + "Arrows ↔", () => {
-    setArcArrows(_menuScene!, arc, true, true);
-    buildArcMenu(arc);
-  });
-  btn((!t && !f ? "✓ " : "") + "No arrows", () => {
-    setArcArrows(_menuScene!, arc, false, false);
-    buildArcMenu(arc);
-  });
-  btn((t && !f ? "✓ " : "") + "Arrow →", () => {
-    setArcArrows(_menuScene!, arc, true, false);
-    buildArcMenu(arc);
-  });
-  btn((!t && f ? "✓ " : "") + "Arrow ←", () => {
-    setArcArrows(_menuScene!, arc, false, true);
-    buildArcMenu(arc);
-  });
   sep();
   btn(
     "Delete line",
